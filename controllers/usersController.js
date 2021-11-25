@@ -58,9 +58,8 @@ const deleteUsers = async (req, res = response) => {
 
   const {id} = req.params;
 
-  // Eliminar fisicamente
-  // const usuario = await Usuario.findByIdAndDelete(id);
   const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
+  // const usuarioAutenticado = req.usuario;
 
   res.json({
     msg: 'Usuario eliminado',
@@ -68,16 +67,9 @@ const deleteUsers = async (req, res = response) => {
   });
 };
 
-const patchUsers = (req, res = response) => {
-  res.status(201).json({
-    msg: "patch API - Controller",
-  });
-};
-
 module.exports = {
   getUsers,
   putUsers,
   deleteUsers,
-  postUsers,
-  patchUsers,
+  postUsers
 };
