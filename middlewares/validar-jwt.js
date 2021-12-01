@@ -13,6 +13,8 @@ const validarJWT = async (req = request, res = response, next) => {
     }
 
     try {
+        const verify = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
+        console.log(verify)
         const {uid} = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
 
         // Leer el usuario que corresponde al uid
