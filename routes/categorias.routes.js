@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { obtenerCategorias, crearCategoria, obtenerCategoriaPorID, actualizarCategoria, borrarCategoria } = require("../controllers/categoriasController");
-const { existeCategoriaPorId } = require("../database/db-validators");
+const { existeCategoriaPorId } = require("../helpers/db-validators");
 const { validarJWT, validarCampos, esAdminRole } = require("../middlewares");
 
 const router = Router();

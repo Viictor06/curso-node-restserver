@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { dbConnection } = require('../database/config')
+const fileUpload = require('express-fileupload')
 
 class Server{
 
@@ -10,11 +11,12 @@ class Server{
         this.port = process.env.PORT;
 
         this.paths = {
-            usersPath: '/api/users',
-            authPath: '/api/auth',
-            categoriasPath: '/api/categorias',
-            productosPath: '/api/productos',
-            buscarPath: '/api/buscar'
+            users: '/api/users',
+            auth: '/api/auth',
+            categorias: '/api/categorias',
+            productos: '/api/productos',
+            buscar: '/api/buscar',
+            uploads: '/api/uploads' 
         }
 
         // Conectar a base de datos
@@ -41,14 +43,22 @@ class Server{
 
         // Directorio publico
         this.app.use(express.static('public'));
+
+        // Carga de archivos
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath: true
+        }));
     }
 
     routes(){
-        this.app.use(this.paths.authPath, require('../routes/auth_route'));
-        this.app.use(this.paths.usersPath, require('../routes/user_routes'));
-        this.app.use(this.paths.categoriasPath, require('../routes/categorias_routes'));
-        this.app.use(this.paths.productosPath, require('../routes/productos_routes'));
-        this.app.use(this.paths.buscarPath, require('../routes/buscar_route'));
+        this.app.use(this.paths.auth, require('../routes/auth.routes'));
+        this.app.use(this.paths.users, require('../routes/user.routes'));
+        this.app.use(this.paths.categorias, require('../routes/categorias.routes'));
+        this.app.use(this.paths.productos, require('../routes/productos.routes'));
+        this.app.use(this.paths.buscar, require('../routes/buscar.routes'));
+        this.app.use(this.paths.uploads, require('../routes/uploads.routes'));
     }
 
     listen(){

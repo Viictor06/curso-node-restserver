@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { obtenerProductos, crearProducto, obtenerProductoPorID, actualizarProducto, borrarProducto } = require("../controllers/productosController");
-const { existeProductoPorId, existeCategoriaPorId } = require("../database/db-validators");
+const { existeProductoPorId, existeCategoriaPorId } = require("../helpers/db-validators");
 const { validarJWT, validarCampos, esAdminRole } = require("../middlewares");
 
 const router = Router();
@@ -34,7 +34,7 @@ router.put("/:id", [
     validarCampos
 ], actualizarProducto);
 
-// Actualizar Producto (privado) - administrador
+// Eliminar Producto (privado) - administrador
 router.delete("/:id", [
     validarJWT,
     esAdminRole,

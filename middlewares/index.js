@@ -1,13 +1,11 @@
 const validaCampos = require("../middlewares/validar-campos");
 const validarJWT = require("../middlewares/validar-jwt");
 const validaRoles = require("../middlewares/validar-roles");
-const googleVerify = require("../middlewares/google-verify");
-const generarJWT = require("../middlewares/generarJWT");
+const validarArchivoSubida = require("../middlewares/validar-archivo");
 
 module.exports = {
     ...validaCampos,
     ...validarJWT,
     ...validaRoles,
-    ...googleVerify,
-    ...generarJWT
+    ...validarArchivoSubida
 }
